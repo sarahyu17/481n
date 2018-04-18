@@ -54,21 +54,21 @@ class Prelim:
         f.close()
 
 
-    def main():
-        comments = "./RC_2005-12"
+def main():
+    comments = "./RC_2005-12"
 
-        v1 = Prelim()
-        v1.read_data(comments)
-        v1.load_nd_subreddits("./neurodivergent")
-        v1.find_nd_users()
-        v1.find_nt_subreddits()
+    v1 = Prelim()
+    v1.read_data(comments)
+    v1.load_nd_subreddits("./neurodivergent")
+    v1.find_nd_users()
+    v1.find_nt_subreddits()
 
-        v1.save_nt_subreddits("./nt_subreddits")
+    v1.save_nt_subreddits("./nt_subreddits")
 
 
 
-    if __name__ == "__main__":
-        main()
+if __name__ == "__main__":
+    main()
 
 
 
