@@ -1,13 +1,14 @@
 import json
+import os
 
 class Prelim:
     def __init__(self):
         self.post_ids = {}
         self.posts_by_author = {}
         self.posts_by_subreddit = {}
-        self.nd_subreddits = ()
-        self.nd_posters = ()
-        self.nt_subreddits_of_nd_users = ()
+        self.nd_subreddits = set()
+        self.nd_posters = set()
+        self.nt_subreddits_of_nd_users = set()
 
     def read_data(self, filename):
         with open(filename) as f:
@@ -55,15 +56,16 @@ class Prelim:
 
 
 def main():
-    comments = "./RC_2005-12"
+    working_directory = os.getcwd()
+    comments = working_directory + "/RC_2005-12.json"
 
     v1 = Prelim()
     v1.read_data(comments)
-    v1.load_nd_subreddits("./neurodivergent")
+    v1.load_nd_subreddits(working_directory + "/neurodivergent.txt")
     v1.find_nd_users()
     v1.find_nt_subreddits()
 
-    v1.save_nt_subreddits("./nt_subreddits")
+    v1.save_nt_subreddits(working_directory + "/nt_subreddits.txt")
 
 
 
