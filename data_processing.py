@@ -15,21 +15,20 @@ class ProcessData:
             for line in input:
                 obj = json.loads(line)
                 writer.writerow({'author': obj['author'],
-                                ''' 'parent_id': obj['parent_id'] if 'parent_id' in obj else 'n/a','''
                                  'subreddit': obj['subreddit'],
+                                 'body': obj['body']})
+
                                  '''
-				 'id' : obj['id'],
-				 'score': obj['score'],
+                                 'id' : obj['id'],
+                                 'score': obj['score'],
                                  'controversiality': obj['controversiality'],
+                                 'parent_id': obj['parent_id'] if 'parent_id' in obj else 'n/a'
                                  '''
-				 'body': obj['body']
-                                 })
 
                 '''
-        
-                    # dict entry for this post
-                    id = obj['id']
-                    entry = {
+                # dict entry for this post
+                id = obj['id']
+                entry = {
                     'author' : obj['author'],
                     'parent_id' : obj['parent_id'] if 'parent_id' in obj else 'n/a',
                     'subreddit' : obj['subreddit'],
