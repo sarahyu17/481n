@@ -7,20 +7,22 @@ class ProcessData:
     # bz2 file format only, read in data
     def read_data(self, input, output):
         input = bz2.BZ2File(input)
-        with open(output, 'wb') as csvfile:
-            fieldnames = ['id', 'author', 'parent_id', 'subreddit', 'score', 'controversiality', 'body']
+        with open(output, 'w') as csvfile:
+            fieldnames = ['author', 'subreddit', 'body']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
 
             for line in input:
                 obj = json.loads(line)
-                writer.writerow({'id' : obj['id'],
-                                 'author': obj['author'],
-                                 'parent_id': obj['parent_id'] if 'parent_id' in obj else 'n/a',
+                writer.writerow({'author': obj['author'],
+                                ''' 'parent_id': obj['parent_id'] if 'parent_id' in obj else 'n/a','''
                                  'subreddit': obj['subreddit'],
-                                 'score': obj['score'],
+                                 '''
+				 'id' : obj['id'],
+				 'score': obj['score'],
                                  'controversiality': obj['controversiality'],
-                                 'body': obj['body']
+                                 '''
+				 'body': obj['body']
                                  })
 
                 '''
@@ -41,11 +43,11 @@ class ProcessData:
 
 
 def main():
-    file = raw_input('file: ')
-    path = os.path.normpath(os.path.join(os.getcwd(), '..', file))
+    #file = input('file: ')
+    path = os.path.normpath(os.path.join(os.getcwd(), '..', 'data/RC_2017-01.bz2'))
 
     pd = ProcessData()
-    pd.read_data(file, 'test.csv')
+    pd.read_data(path, 'test.csv')
 
 
 
