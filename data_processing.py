@@ -18,15 +18,14 @@ class ProcessData:
                                  'subreddit': obj['subreddit'],
                                  'body': obj['body']})
 
-                                 '''
-                                 'id' : obj['id'],
-                                 'score': obj['score'],
-                                 'controversiality': obj['controversiality'],
-                                 'parent_id': obj['parent_id'] if 'parent_id' in obj else 'n/a'
-                                 '''
-
                 '''
-                # dict entry for this post
+                # optional columns in csv
+		'id' : obj['id'],
+                'score': obj['score'],
+                'controversiality': obj['controversiality'],
+                'parent_id': obj['parent_id'] if 'parent_id' in obj else 'n/a'
+                
+		# dict entry for this post
                 id = obj['id']
                 entry = {
                     'author' : obj['author'],
