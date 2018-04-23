@@ -57,7 +57,7 @@ class Prelim:
 
 def main():
     working_directory = os.getcwd()
-    comments = working_directory + "/RC_2005-12.json"
+    comments = working_directory + "/RC_2010-02.json"
 
     v1 = Prelim()
     v1.read_data(comments)
