@@ -44,6 +44,9 @@ def main():
     file = raw_input('file: ')
     path = os.path.normpath(os.path.join(os.getcwd(), '..', file))
 
+    pd = ProcessData()
+    pd.read_data(file, 'test.csv')
+
 
 
 if __name__ == '__main__':
