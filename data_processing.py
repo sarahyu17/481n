@@ -2,6 +2,11 @@ import bz2, json, os, sqlalchemy, pymysql, langid
 
 class ProcessData:
 
+    def connSQL(self):
+        print("Connecting to SQL...")
+        engine = sqlalchemy.create_engine('mysql+pymysql://msap:RK58pycr@cubist.cs.washington.edu/msap_selfPres')
+        return engine
+
     # bz2 file format only, read in data
     def process_table(self, input):
         input = bz2.BZ2File(input)
@@ -63,12 +68,6 @@ class ProcessData:
                 self.data[id] = entry
                 
              '''
-
-    def connSQL(self):
-        print("Connecting to SQL...")
-        
-        engine = sqlalchemy.create_engine('mysql+pymysql://msap:RK58pycr@cubist.cs.washington.edu/msap_selfPres')
-        return engine
 
 def main():
     #file = input('file: ')
