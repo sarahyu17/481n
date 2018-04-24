@@ -1,4 +1,4 @@
-import bz2, json, os, sqlalchemy
+import bz2, json, os, sqlalchemy, pymysql, langid
 
 class ProcessData:
 
@@ -11,8 +11,22 @@ class ProcessData:
 
         for line in input:
             obj = json.loads(line)
+
+            # sanitize data for SQL input 
+            author = obj["author"]
+            subreddit = obj["subreddit"]
+            body = obj["body"]
+            # remove special characters
+            body.translate({ord(c): " " for c in "!@#$%^&*()[]{};:,./<>?\|`~-=_+\n"})
+
+
+            # language filter
+            lang = langid.classify(body)
+            if lang[0] != "en":
+                continue
+ 
             sqlquery = ("INSERT INTO posts_small (author, subreddit, body) "
-                        "VALUES ({:s}, {:s}, {:s})".format(obj["author"], obj["subreddit"], obj["body"]))
+                        "VALUES ({:s}, {:s}, {:s})".format(author, subreddit, body))
             connection.execute(sqlquery)
 
         connection.close()
@@ -52,6 +66,7 @@ class ProcessData:
 
     def connSQL(self):
         print("Connecting to SQL...")
+        
         engine = sqlalchemy.create_engine('mysql+pymysql://msap:RK58pycr@cubist.cs.washington.edu/msap_selfPres')
         return engine
 
