@@ -5,6 +5,7 @@ class ProcessData:
     def connSQL(self):
         print("Connecting to SQL...")
         engine = sqlalchemy.create_engine('mysql+pymysql://msap:RK58pycr@cubist.cs.washington.edu/msap_selfPres')
+        print("Connected")
         return engine
 
     # bz2 file format only, read in data
@@ -15,6 +16,7 @@ class ProcessData:
         connection = engine.connect()
         i = 0
 
+        print("Starting SQL queries")
         for line in input:
             print(i)
             i +=1
@@ -37,8 +39,9 @@ class ProcessData:
                         "VALUES ({:s}, {:s}, {:s});".format(author, subreddit, body))
             connection.execute(sqlquery)
 
+        print("Done.")
         connection.close()
-
+        print("Closed.")
 
 
         '''
