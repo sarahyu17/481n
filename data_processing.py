@@ -35,8 +35,7 @@ class ProcessData:
             if lang[0] != "en":
                 continue
  
-            sqlquery = ("INSERT INTO posts_small (author, subreddit, body) "
-                        "VALUES ({:s}, {:s}, {:s});".format(author, subreddit, body))
+            sqlquery = ("INSERT INTO posts_small (author, subreddit, body) VALUES ('{:s}', '{:s}', '{:s}');".format(author, subreddit, body))
             connection.execute(sqlquery)
 
         print("Done.")
