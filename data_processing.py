@@ -13,14 +13,13 @@ class ProcessData:
 
         engine = self.connSQL()
         connection = engine.connect()
+        i = 0
 
-	i = 0
         for line in input:
             print(i)
-	    i +=1
-	    
-	    obj = json.loads(line)
-
+            i +=1
+            
+            obj = json.loads(line)
             # sanitize data for SQL input 
             author = obj["author"]
             subreddit = obj["subreddit"]
