@@ -15,6 +15,7 @@ class ProcessData:
         conn = self.connSQL()
         print("Connected")
 
+        f = open("out.txt", "w")
         # for html specific sanitizing
         htmltag = re.compile('<.*?>')
 
@@ -28,12 +29,17 @@ class ProcessData:
             author = obj["author"]
             subreddit = obj["subreddit"]
             body = obj["body"]
+            f.write("{:s}/n".format(body))
             # remove HTML encodings
             body = html.unescape(body)
+            f.write("{:s}/n".format(body))
             body = re.sub(htmltag, '', body)
+            f.write("{:s}/n".format(body))
             # remove special characters
             body.translate({ord(c): " " for c in "!@#$%^&*()[]{};:,./<>?\|`~-=_+\n"})
+            f.write("{:s}/n".format(body))
             body = body.replace("'", "\\'")
+            f.write("{:s}/n".format(body))
             
             # language filter
             lang = langid.classify(body)
