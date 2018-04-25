@@ -1,4 +1,4 @@
-import bz2, json, os, sqlalchemy, pymysql, langid, re, html
+import bz2, json, os, sqlalchemy, pymysql, langid, re, html, warnings
 
 class ProcessData:
 
@@ -15,7 +15,7 @@ class ProcessData:
         conn = self.connSQL()
         print("Connected")
 
-        f = open("out.txt", "w")
+        f = open("errors.txt", "w")
         # for html specific sanitizing
         htmltag = re.compile('<.*?>')
 
@@ -29,17 +29,12 @@ class ProcessData:
             author = obj["author"]
             subreddit = obj["subreddit"]
             body = obj["body"]
-            f.write("{:s}/n".format(body))
             # remove HTML encodings
             body = html.unescape(body)
-            f.write("{:s}/n".format(body))
             body = re.sub(htmltag, '', body)
-            f.write("{:s}/n".format(body))
             # remove special characters
-            body.translate({ord(c): " " for c in "!@#$%^&*()[]{};:,./<>?\|`~-=_+\n"})
-            f.write("{:s}/n".format(body))
+            body = body.translate({ord(c): " " for c in "!@#$%^&*()[]{};:,./<>?\|`~-=_+\n"})
             body = body.replace("'", "\\'")
-            f.write("{:s}/n".format(body))
             
             # language filter
             lang = langid.classify(body)
@@ -47,10 +42,16 @@ class ProcessData:
                 continue
  
             sqlquery = ("INSERT INTO posts_small (author, subreddit, body) VALUES ('{:s}', '{:s}', '{:s}');".format(author, subreddit, body))
-            conn.execute(sqlquery)
+            with warnings.catch_warnings():
+                warnings.simplefilter('error', pymysql.Warning)
+                try:
+                    conn.execute(sqlquery)
+                except Exception as e:
+                    f.write("{:s}\n".format(body))
 
         print("Done.")
         conn.close()
+        f.close()
         print("Closed.")
 
 
