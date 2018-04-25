@@ -11,11 +11,15 @@ class ProcessData:
     def process_table(self, input):
         input = bz2.BZ2File(input)
 
-        engine = connSQL()
+        engine = self.connSQL()
         connection = engine.connect()
 
+	i = 0
         for line in input:
-            obj = json.loads(line)
+            print(i)
+	    i +=1
+	    
+	    obj = json.loads(line)
 
             # sanitize data for SQL input 
             author = obj["author"]
@@ -31,7 +35,7 @@ class ProcessData:
                 continue
  
             sqlquery = ("INSERT INTO posts_small (author, subreddit, body) "
-                        "VALUES ({:s}, {:s}, {:s})".format(author, subreddit, body))
+                        "VALUES ({:s}, {:s}, {:s});".format(author, subreddit, body))
             connection.execute(sqlquery)
 
         connection.close()
