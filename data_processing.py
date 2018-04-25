@@ -5,14 +5,14 @@ class ProcessData:
     def connSQL(self):
         print("Connecting to SQL...")
         engine = sqlalchemy.create_engine('mysql+pymysql://msap:RK58pycr@cubist.cs.washington.edu/msap_selfPres?charset=utf8', encoding='utf-8')
-        return engine
+        conn = engine.connect()
+        return conn
 
     # bz2 file format only, read in data
     def process_table(self, input):
         input = bz2.BZ2File(input)
 
-        engine = self.connSQL()
-        conn = engine.connect()
+        conn = self.connSQL()
         print("Connected")
 
         # for html specific sanitizing
