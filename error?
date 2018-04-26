@@ -1,0 +1,8 @@
+&gt;\xa0\xa0almost valueless in modern (read that as bullshit grunt work) warfare.\n\nTo be fair, in some ways that's due to equal parts technological superiority and limited rules of engagement. We thankfully haven't been involved in any significant conflicts with peer or neer-peer countries recently, and everyone else knows it's pretty pointless to fight us in the air because it'll be a complete turkey shoot (ground to air is a bit different). On the other hand, conflicts like Syria show exactly what can happen when you don't have control of the air, even when the opponent has a relatively rudimentary air capability. Fast movers would be very useful in preventing people from getting barrel bombed, but that's a decision that is made way above the tactical level.
+
+
+/home/sarahyu/miniconda3/lib/python3.6/site-packages/pymysql/cursors.py:165: Warning: (1366, "Incorrect string value: '\\xF0\\x9F\\x98\\x82\\x0A\\x0A' for column 'body' at row 1")
+  result = self._query(query)
+
+  /home/sarahyu/miniconda3/lib/python3.6/site-packages/pymysql/cursors.py:165: Warning: (1366, "Incorrect string value: '\\xE2\\x9D\\xA4\\xEF\\xB8\\x8F...' for column 'body' at row 1")
+  result = self._query(query)

@@ -1,0 +1,33 @@
+--- getting all the neurodivergent posts ---
+SELECT * FROM posts_small WHERE subreddit IN (SELECT subreddit FROM subreddit_list);
+
+
+--- getting neurotypical subreddits from nd users ---
+SELECT subreddit, count(author) as num_posters
+FROM posts_small
+WHERE author IN (
+    SELECT author
+    FROM posts_small 
+    WHERE subreddit IN (SELECT subreddit FROM subreddit_list)
+    )
+GROUP BY subreddit
+ORDER BY num_posters;
+
+
+--- getting neurodivergent posts, body --- 
+
+SELECT body FROM poss_small WHERE subreddit IN (SELECT subreddit FROM subreddit_list);
+
+
+--- getting neurotypical posts, body ---
+
+SELECT body 
+FROM posts_small 
+WHERE subreddit IN (
+    SELECT subreddit 
+    FROM temp_nt_subreddit_ordered
+    WHERE num_posts < 1000 
+)
+
+
+for line i

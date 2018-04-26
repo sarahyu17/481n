@@ -36,7 +36,7 @@ class ProcessData:
             body = body.translate({ord(c): " " for c in "!@#$%^&*()[]{};:,./<>?\|`~-=_+\n"})
             body = body.replace("'", "\\'")
             
-            # language filter
+            # language filter: only english
             lang = langid.classify(body)
             if lang[0] != "en":
                 continue
