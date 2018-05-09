@@ -8,18 +8,21 @@ counts = {}
 def get_counts(file, category):
     with open(file) as f:
         for line in f:
-            for word in line.split():
-                # if word exists, update
-                if word in counts:
-                    c = counts[word]
-                    # nt or nd already exists, so update
-                    if category in c:
-                        c[category] += 1
-                    else:
-                        c[category] = 1
-                # new entry  
-                else:
-                    counts[word] = {category:1}
+            if line.strip() != 'removed':
+                for word in line.split():
+                    # only alphabet, no numbers
+                    if word.isalpha():
+                        # if word exists, update
+                        if word in counts:
+                            c = counts[word]
+                            # nt or nd already exists, so update
+                            if category in c:
+                                c[category] += 1
+                            else:
+                                c[category] = 1
+                        # new entry  
+                        else:
+                            counts[word] = {category:1}
 
 def idp(counts_df,col_name):
   """Takes in a df with raw counts for various words and returns a weight
@@ -83,8 +86,8 @@ def clean_data():
 
 
 if __name__ == "__main__":
-    get_counts('nt_posts_scrubbing.txt', 'nt')
-    get_counts('nd_posts_scrubbing.txt', 'nd')
+    get_counts('v2_nt_posts.txt', 'nt')
+    get_counts('v2_diverg_posts.txt', 'nd')
     clean_data()
     d = WCs()
-    d.to_csv(path_or_buf='idp')
+    d.to_csv(path_or_buf='v2_idp')
