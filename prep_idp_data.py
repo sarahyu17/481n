@@ -21,7 +21,6 @@ def get_counts(file, category):
                 else:
                     counts[word] = {category:1}
 
-
 def idp(counts_df,col_name):
   """Takes in a df with raw counts for various words and returns a weight
   (association metric) for each word with the given column.
@@ -40,7 +39,6 @@ def idp(counts_df,col_name):
   counts = counts_df.copy()
   counts["all"] = counts.sum(axis=1)
   not_col_name = "not_col_name"
-  #embed()
   counts[not_col_name] = counts[counts.columns.drop(["all",col_name])].sum(axis=1)
   sums = counts.sum(axis=0)
 
@@ -73,13 +71,20 @@ def WCs():
 
   nt = idp(df,"nt")
   nd = idp(df,"nd")
-  embed()
   d = pd.DataFrame(index=nd.index)
   d["nd"] = nd
-  d["nt"] = nt
+  d["nt"] =nt
   return d
+
+def clean_data():
+    for key, value in counts.copy().items():
+        if 'nt' not in value or 'nd' not in value:
+            del counts[key]
+
 
 if __name__ == "__main__":
     get_counts('nt_posts_scrubbing.txt', 'nt')
     get_counts('nd_posts_scrubbing.txt', 'nd')
-    WCs()
+    clean_data()
+    d = WCs()
+    d.to_csv(path_or_buf='idp')
