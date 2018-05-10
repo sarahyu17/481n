@@ -30,4 +30,18 @@ WHERE subreddit IN (
 )
 
 
-for line i
+SELECT body FROM reddit_posts
+WHERE subreddit IN (
+    SELECT subreddit
+    FROM v2_diverg_subs
+    WHERE ICD10="F40" OR ICD10="F30"
+)
+
+SELECT body FROM reddit_posts
+WHERE subreddit IN (
+    SELECT * FROM v2_nt_subs
+)
+
+
+with open('v2_nt_subs.txt', 'w') as f:
+    
