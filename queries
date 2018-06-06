@@ -16,7 +16,7 @@ ORDER BY num_posters;
 
 --- getting neurodivergent posts, body --- 
 
-SELECT body FROM poss_small WHERE subreddit IN (SELECT subreddit FROM subreddit_list);
+SELECT body FROM posts_small WHERE subreddit IN (SELECT subreddit FROM subreddit_list);
 
 
 --- getting neurotypical posts, body ---
@@ -42,6 +42,41 @@ WHERE subreddit IN (
     SELECT * FROM v2_nt_subs
 )
 
+SELECT body, ICD10 FROM reddit_posts, v2_subs
+WHERE reddit_posts.subreddit IN (
+    SELECT subreddit
+    FROM v2_subs
+    WHERE ICD10="F40" OR ICD10="F30" OR ICD10="F50" OR ICD10="0NT"
+)
 
-with open('v2_nt_subs.txt', 'w') as f:
-    
+
+with open('v3_posts.txt', 'w') as f:
+    for line in res: 
+        f.write("{:s}\n".format(line[0]))
+
+
+with open('v4_posts.csv', 'w') as csvfile:
+    fieldnames = ['post', 'cat']
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+    writer.writeheader()
+    for line in res:
+        writer.writerow({'post': line[0], 'cat': 'F30'})
+
+
+--- csv parsing ---
+
+import csv
+
+posts = [['post', 'cat']]
+
+with open('v3_posts.txt', 'r') as f:
+    for line in f:
+        words = line.split(" ")
+        if len(words) > 4 and len(words) <= 50:
+            posts.append([line, 0])
+
+with open('v3_posts_fixed.csv', 'w') as out:
+    writer = csv.writer(out)
+    writer.writerows(posts)
+
