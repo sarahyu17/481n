@@ -86,8 +86,11 @@ def clean_data():
 
 
 if __name__ == "__main__":
-    get_counts('v2_nt_posts.txt', 'nt')
-    get_counts('v2_diverg_posts.txt', 'nd')
+    get_counts('v5_f30.txt', 'F30')
+    get_counts('v5_nt.txt', '0NT')
+    get_counts('v5_f40.txt', 'F40')
+    get_counts('v5_f50.txt', 'F50')
+    get_counts('v5_x71.txt', 'X71')
     clean_data()
     d = WCs()
     d.to_csv(path_or_buf='v2_idp')
