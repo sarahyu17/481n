@@ -93,4 +93,4 @@ if __name__ == "__main__":
     get_counts('v5_x71.txt', 'X71')
     clean_data()
     d = WCs()
-    d.to_csv(path_or_buf='v2_idp')
+    d.to_csv(path_or_buf='v5_idp')
