@@ -70,6 +70,7 @@ def WCs():
   """Cindy use this? It works with verbs.csv"""
   df = pd.DataFrame(data=counts)
   df = df.transpose()
+  embed()
   g = df.groupby('nt').sum().T
 
   nt = idp(df,"0NT")
