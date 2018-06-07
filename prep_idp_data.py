@@ -87,7 +87,7 @@ def WCs():
 
 def clean_data():
     for key, value in counts.copy().items():
-        if 'nt' not in value or 'nd' not in value:
+        if 'F30' not in value or 'nd' not in value:
             del counts[key]
 
 

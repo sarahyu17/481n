@@ -80,3 +80,14 @@ with open('v3_posts_fixed.csv', 'w') as out:
     writer = csv.writer(out)
     writer.writerows(posts)
 
+
+
+
+with open('f50_liwc.csv', 'w') as csv_file:
+    writer = csv.writer(csv_file)
+    for key, value in res.items():
+        writer.writerow([key, value])
+
+
+with open('v5/v5_x71.txt', 'w') as f:
+    data = f.read()
