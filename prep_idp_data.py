@@ -70,13 +70,19 @@ def WCs():
   """Cindy use this? It works with verbs.csv"""
   df = pd.DataFrame(data=counts)
   df = df.transpose()
-  g = df.groupby('nt').sum().T
+  g = df.groupby('0NT').sum().T
 
-  nt = idp(df,"nt")
-  nd = idp(df,"nd")
+  nt = idp(df,"0NT")
+  f30 = idp(df,"F30")
+  f40 = idp(df,"F40")
+  f50 = idp(df,"F50")
+  x71 = idp(df,"X71")
   d = pd.DataFrame(index=nd.index)
-  d["nd"] = nd
-  d["nt"] =nt
+  d["nt"] = nt
+  d["f30"] =f30
+  d["f40"] = f40
+  d["f50"] =f50
+  d["x71"] =x71
   return d
 
 def clean_data():
@@ -93,4 +99,4 @@ if __name__ == "__main__":
     get_counts('v5_x71.txt', 'X71')
     clean_data()
     d = WCs()
-    d.to_csv(path_or_buf='v2_idp')
+    d.to_csv(path_or_buf='v5_idp')
